@@ -8,6 +8,8 @@
 import os
 import tarfile
 import wget
+import numpy as np
+import sklearn
 
 def fetch_data_url(url, filename, dest_path):
   if not os.path.isdir(dest_path):
@@ -18,6 +20,19 @@ def fetch_data_url(url, filename, dest_path):
   tar.extractall(path=dest_path)
   tar.close()
   return
+
+def split_train_test(data: 'panda.Dataframe', test_ratio: 'int') -> 'tuple':
+  """
+  Split train and test data from a pandas dataframe with the indicated test data ratio
+  """
+  shuffle_indices = np.random.permutation(len(data))
+  test_set_size = int(len(data) * test_ratio)
+  test_indices = shuffled_indices[:test_set_size]
+  train_indices = shuffled_indices[test_set_size:]
+  return data.iloc[train_indices], data.iloc[test_indices]
+
+def
+
 
 def main():
   url = "https://github.com/ageron/handson-ml/raw/master/datasets/housing"
